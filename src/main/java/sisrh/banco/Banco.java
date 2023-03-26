@@ -125,6 +125,77 @@ public class Banco {
 		return lista;
 	}
 
+	public static List<Empregado> listarEmpregadosAtivos() throws Exception {
+		List<Empregado> lista = new ArrayList<Empregado>();
+		Connection conn = Banco.getConexao();
+		String sql = "SELECT * FROM Empregado e "
+				+ "WHERE e.desligamento IS NULL";
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next()) {
+			String matricula = rs.getString("matricula");
+			String nome = rs.getString("nome");
+			Date admissao = rs.getDate("admissao");
+			Date desligamento = rs.getDate("desligamento");
+			Double salario = rs.getDouble("salario");
+			Empregado emp = new Empregado(matricula, nome, admissao,
+					desligamento, salario);
+			lista.add(emp);
+		}
+		rs.close();
+		prepStmt.close();
+		return lista;
+	}
+
+	public static List<Empregado> listarEmpregadosInativos() throws Exception {
+		List<Empregado> lista = new ArrayList<Empregado>();
+		Connection conn = Banco.getConexao();
+		String sql = "SELECT * FROM Empregado e "
+				+ "WHERE e.desligamento IS NOT NULL";
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next()) {
+			String matricula = rs.getString("matricula");
+			String nome = rs.getString("nome");
+			Date admissao = rs.getDate("admissao");
+			Date desligamento = rs.getDate("desligamento");
+			Double salario = rs.getDouble("salario");
+			Empregado emp = new Empregado(matricula, nome, admissao,
+					desligamento, salario);
+			lista.add(emp);
+		}
+		rs.close();
+		prepStmt.close();
+		return lista;
+	}
+
+	public static List<Solicitacao> listarSolicitacoes(String usuario)
+			throws Exception {
+		List<Solicitacao> lista = new ArrayList<Solicitacao>();
+		Connection conn = Banco.getConexao();
+		String sql = "SELECT * FROM Solicitacao as s "
+				+ "INNER JOIN Empregado as e ON s.matricula = e.matricula "
+				+ "INNER JOIN Usuario as u ON e.matricula = u.matricula "
+				+ "WHERE u.nome = ? ";
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		prepStmt.setString(1, usuario);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			Integer id = rs.getInt("id");
+			Date data = rs.getDate("data");
+			String descricao = rs.getString("descricao");
+			Integer situacao = rs.getInt("situacao");
+			String matricula = rs.getString("matricula");
+			Solicitacao solicitacao = new Solicitacao(id, data, descricao,
+					situacao, matricula);
+			lista.add(solicitacao);
+		}
+		rs.close();
+		prepStmt.close();
+		return lista;
+	}
+
 	// ---------------------- CONSULTAS ----------------------
 
 	public static Empregado buscarEmpregadoPorMatricula(String matricula)

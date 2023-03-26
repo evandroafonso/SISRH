@@ -5,8 +5,12 @@
 
 	<endpoint name="EmpregadoService"
 		implementation="sisrh.soap.ServicoEmpregado"
-		url-pattern="/soap/empregado">
-	</endpoint>
+		url-pattern="/soap/empregado" />
+
+	<endpoint name="ServicoSolicitacao"
+		implementation="sisrh.soap.ServicoSolicitacao"
+		url-pattern="/soap/solicitacao" />
 
 </endpoints>
+
 
