@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>
-                javax.servlet-api</artifactId>
+				javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
@@ -27,7 +27,7 @@
 		<!-- Banco HSQLDB -->
 		<dependency>
 			<groupId>
-                org.hsqldb</groupId>
+				org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>2.6.0</version>
 		</dependency>
@@ -64,6 +64,24 @@
 					<artifactId>jsr311-api</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<!-- JWT -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.1</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 	<properties>
